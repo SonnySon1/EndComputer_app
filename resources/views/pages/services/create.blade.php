@@ -81,25 +81,16 @@
                                                 <td>#</td>
                                                 <td>Service Type</td>
                                                 <td>Price</td>
+                                                <td>Action</td>
                                             </tr>                                            
                                         </thead>
-                                        <tbody>
-                                            <tr>
-                                                <td>1</td>
-                                                <td>
-                                                    <select class="form-control select2" name="service_type" id="service_type">
-                                                        <option hidden>--Choose Service Type--</option>
-                                                        <option value="1">Service LCD</option>
-                                                        <option value="2">Service Keyboard</option>
-                                                        <option value="2">Service Touchpad</option>
-                                                    </select>
-                                                </td>
-                                                <td>
-                                                    <input type="text" name="price" disabled readonly id="price" class="form-control" placeholder="ex : 10000">
-                                                </td>
-                                            </tr>
+                                        <tbody id="table-body-servicetype">
+                                            
                                         </tbody>
                                     </table>
+                                    <div>
+                                        <button type="button" id="add-row-servicetype" class="btn btn-secondary w-100">Add Other Service</button>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -109,3 +100,64 @@
         </section>
     </div>
 @endsection
+@push('costom.js')
+    <script>
+        $(document).ready(function () {
+            addNewServiceTypeRow();
+            $('#add-row-servicetype').on('click', function () {
+                addNewServiceTypeRow(); 
+            });
+        })
+        function addNewServiceTypeRow() {
+            let rowCount = $('#table-body-servicetype tr').length;
+            row = rowCount + 1;
+
+
+            let rowHtml = `
+                <tr class="servicetype-row">
+                    <td>${row}</td>
+                    <td>
+                        <select class="form-control select2" name="service_type[]" id="service_type_${row}">
+                            <option hidden>--Choose Service Type--</option>
+                            <option value="1">Service LCD</option>
+                            <option value="2">Service Keyboard</option>
+                            <option value="2">Service Touchpad</option>
+                        </select>
+                    </td>
+                    <td>
+                        <input type="text" name="price" disabled readonly id="price_${row}" class="form-control" placeholder="0">
+                    </td>
+                    <td>
+                        <button onclick="removeServiceTypeRow(this)" class="btn btn-danger btn-remove-product-purcahse-row"><i class="bi bi-trash3"></i></button>
+                    </td>
+                </tr>
+            `;
+
+            $('#table-body-servicetype').append(rowHtml);
+            updateNumberServiceTypeRow();
+        }
+
+
+
+        // update number product sale row
+        function updateNumberServiceTypeRow() {
+            let rowCount = $('#table-body-servicetype tr').each(function (index) {
+                $(this).find('td:first').text(index + 1);
+            });
+            toggleServiceTypeRowButtons();
+        }
+
+        // check row === 1 if 1  disable remove button  
+        function toggleServiceTypeRowButtons(){
+            let rowCount = $('#table-body-servicetype tr').length;
+            $('.btn-remove-product-purcahse-row').prop('disabled', rowCount < 2);
+        } 
+
+        // remove product sale row
+        function removeServiceTypeRow(row) {
+            $(row).closest('.servicetype-row').remove();
+
+            updateNumberServiceTypeRow();
+        }
+    </script>
+@endpush
