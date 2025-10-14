@@ -70,14 +70,14 @@
                     </ul>
                 </li>
 
-                <li class="sidebar-item  has-sub">
+                <li class="sidebar-item {{ Route::is('services*') ? 'active' : '' }} has-sub">
                     <a href="#" class='sidebar-link'>
                         <i class="bi bi-stack"></i>
                         <span>Services</span>
                     </a>
-                    <ul class="submenu ">
-                        <li class="submenu-item">
-                            <a href="component-badge.html" class="submenu-link">Service Laptop</a>
+                    <ul class="submenu {{ Route::is('services*') ? 'active' : '' }}">
+                        <li class="submenu-item {{ Route::is('services*') ? 'active' : '' }}">
+                            <a href="{{ route('services.index') }}" class="submenu-link">Service Laptop</a>
                         </li>
                     </ul>
                 </li>

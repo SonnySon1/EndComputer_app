@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\LaptopController;
+use App\Http\Controllers\ServiceController;
 use App\Http\Controllers\ServiceitemController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
@@ -34,4 +35,14 @@ Route::prefix('serviceitems')->group(function () {
     Route::post('/', [ServiceitemController::class, 'store'])->name('serviceitems.store');
     Route::get('/{id}', [ServiceitemController::class, 'edit'])->name('serviceitems.edit');
     Route::post('/{id}', [ServiceitemController::class, 'update'])->name('serviceitems.update');
+});
+
+
+// service routes
+Route::prefix('services')->group(function () {
+    Route::get('/', [ServiceController::class, 'index'])->name('services.index');
+    Route::get('/create', [ServiceController::class, 'create'])->name('services.create');
+    Route::post('/', [ServiceController::class, 'store'])->name('services.store');
+    Route::get('/{id}', [ServiceController::class, 'edit'])->name('services.edit');
+    Route::post('/{id}', [ServiceController::class, 'update'])->name('services.update');
 });

@@ -271,3 +271,8 @@
                 </section>
             </div>
 @endsection
+@push('costom.js')
+    <!-- Need: Apexcharts -->
+    <script src="{{ asset('assets/extensions/apexcharts/apexcharts.min.js') }}"></script>
+    <script src="{{ asset('assets/static/js/pages/dashboard.js') }}"></script>
+@endpush
