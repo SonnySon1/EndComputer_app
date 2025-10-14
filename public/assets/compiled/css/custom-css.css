@@ -1,0 +1,27 @@
+.dote{
+    width: 10px !important;
+    height: 10px !important;
+    border-radius: 100% !important;
+    display: inline-block !important;
+}
+
+.dote-success{
+    background-color: #5cb85c !important;
+    border-color: #5cb85c !important;
+    color: #fff !important;
+}
+.dote-warning{
+    background-color: #f0ad4e !important;
+    border-color: #f0ad4e !important;
+    color: #fff !important;
+}
+.dote-info{
+    background-color: #5bc0de !important;
+    border-color: #5bc0de !important;
+    color: #fff !important;
+}
+.dote-danger{
+    background-color: #d9534f !important;
+    border-color: #d9534f !important;
+    color: #fff !important;
+}

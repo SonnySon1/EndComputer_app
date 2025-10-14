@@ -1,0 +1,37 @@
+<?php
+
+use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\LaptopController;
+use App\Http\Controllers\ServiceitemController;
+use App\Http\Controllers\UserController;
+use Illuminate\Support\Facades\Route;
+
+Route::get('/', [DashboardController::class, 'index'])->name('dashboard.index');
+
+
+// user routes
+Route::prefix('users')->group(function () {
+    Route::get('/', [UserController::class, 'index'])->name('users.index');
+    Route::get('/create', [UserController::class, 'create'])->name('users.create');
+    Route::post('/', [UserController::class, 'store'])->name('users.store');
+    Route::get('/{id}', [UserController::class, 'edit'])->name('users.edit');
+    Route::post('/{id}', [UserController::class, 'update'])->name('users.update');
+});
+
+// laptop routes
+Route::prefix('laptops')->group(function () {
+    Route::get('/', [LaptopController::class, 'index'])->name('laptops.index');
+    Route::get('/create', [LaptopController::class, 'create'])->name('laptops.create');
+    Route::post('/', [LaptopController::class, 'store'])->name('laptops.store');
+    Route::get('/{id}', [LaptopController::class, 'edit'])->name('laptops.edit');
+    Route::post('/{id}', [LaptopController::class, 'update'])->name('laptops.update');
+});
+
+// service items routes
+Route::prefix('serviceitems')->group(function () {
+    Route::get('/', [ServiceitemController::class, 'index'])->name('serviceitems.index');
+    Route::get('/create', [ServiceitemController::class, 'create'])->name('serviceitems.create');
+    Route::post('/', [ServiceitemController::class, 'store'])->name('serviceitems.store');
+    Route::get('/{id}', [ServiceitemController::class, 'edit'])->name('serviceitems.edit');
+    Route::post('/{id}', [ServiceitemController::class, 'update'])->name('serviceitems.update');
+});
