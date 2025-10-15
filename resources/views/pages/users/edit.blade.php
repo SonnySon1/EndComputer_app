@@ -14,7 +14,7 @@
                         <ol class="breadcrumb">
                             <li class="breadcrumb-item"><a href="">Master Data</a></li>
                             <li class="breadcrumb-item"><a href="{{ route('users.index') }}">Users</a></li>
-                            <li class="breadcrumb-item active" aria-current="page">Create</li>
+                            <li class="breadcrumb-item active" aria-current="page">Edit</li>
                         </ol>
                     </nav>
                 </div>
@@ -29,25 +29,25 @@
                         </div>
                         <div class="card-content">
                             <div class="card-body">
-                                <form class="form" action="{{ route('users.store') }}" method="POST" id="form-add-user" data-parsley-validate>
+                                <form class="form" action="{{ route('users.update', $user->id) }}" method="POST" id="form-add-user" data-parsley-validate>
                                     @csrf
                                     <div class="row">
                                         <div class="col-md-6 col-12">
                                             <div class="form-group mb-3">
                                                 <label for="name">Name</label>
-                                                <input type="text" name="name" id="name" class="form-control"  data-parsley-required="true" placeholder="ex: John Doe">
+                                                <input type="text" name="name" value="{{ $user->name }}" id="name" class="form-control"  data-parsley-required="true" placeholder="ex: John Doe">
                                             </div>
                                             <div class="form-group mb-3">
                                                 <label for="address">Address</label>
-                                                <input type="text" name="address" id="address" class="form-control"  data-parsley-required="true" placeholder="ex : JL. Jendral Sudirman, No. 1, Bandung">
+                                                <input type="text" name="address" value="{{ $user->address }}" id="address" class="form-control"  data-parsley-required="true" placeholder="ex : JL. Jendral Sudirman, No. 1, Bandung">
                                             </div>
                                             <div class="form-group mb-3">
                                                 <label for="phonenumber">Phone Number</label>
-                                                <input type="tel" name="phonenumber" id="phonenumber" class="form-control"  data-parsley-required="true" placeholder="ex : 08000000000">
+                                                <input type="tel" name="phonenumber" value="{{ $user->phonenumber }}" id="phonenumber" class="form-control"  data-parsley-required="true" placeholder="ex : 08000000000">
                                             </div>
                                             <div class="form-group mb-3">
                                                 <label for="email">Email</label>
-                                                <input type="email" name="email" id="email" class="form-control"  data-parsley-required="true" placeholder="ex : johndoe@example.com">
+                                                <input type="email" name="email" value="{{ $user->email }}" id="email" class="form-control"  data-parsley-required="true" placeholder="ex : johndoe@example.com">
                                             </div>
                                         </div>
                                         <div class="col-md-6 col-12">
@@ -55,16 +55,16 @@
                                                 <label for="role">Role</label>
                                                 <select class="form-control" name="role"  data-parsley-required="true" id="role">
                                                     <option value="" hidden>--Choose Role--</option>
-                                                    <option value="1">Admin</option>
-                                                    <option value="2">Technician</option>
+                                                    <option {{ $user->role == 1 ? 'selected' : '' }} value="1">Admin</option>
+                                                    <option {{ $user->role == 2 ? 'selected' : '' }} value="2">Technician</option>
                                                 </select>
                                             </div>
                                             <div class="form-group mb-3">
                                                 <label for="status">Status Active</label>
                                                 <select class="form-control" name="status"  data-parsley-required="true" id="status">
                                                     <option value="" hidden>--Choose Status--</option>
-                                                    <option value="1">Active</option>
-                                                    <option value="0">Not Active</option>
+                                                    <option {{ $user->status == 1 ? 'selected' : '' }} value="1">Active</option>
+                                                    <option {{ $user->status == 0 ? 'selected' : '' }} value="0">Inactive</option>
                                                 </select>
                                             </div>
                                             <div class="form-group mb-3">

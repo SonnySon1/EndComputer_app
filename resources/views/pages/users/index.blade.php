@@ -46,34 +46,32 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td class="text-nowrap">Graiden</td>
-                                    <td class="text-nowrap">vehicula.aliquet@semconsequat.co.uk</td>
-                                    <td class="text-nowrap">076 4820 8838</td>
-                                    <td class="text-nowrap"><span class="dote dote-danger"></span> <small>Admin</small></td>
-                                    <td class="text-nowrap">
-                                        <span class="badge bg-success">Active</span>
-                                    </td>
-                                    <td class="d-flex gap-2">
-                                        <a href="#" class="btn btn-sm btn-primary">Detail</a>
-                                        <a href="#" class="btn btn-sm btn-warning">Edit</a>
-                                        <a href="#" class="btn btn-sm btn-danger">Delete</a>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="text-nowrap">Dale</td>
-                                    <td class="text-nowrap">fringilla.euismod.enim@quam.ca</td>
-                                    <td class="text-nowrap">0500 527693</td>
-                                    <td class="text-nowrap"><span class="dote dote-success"></span> <small>Tecnician</small></td>
-                                    <td class="text-nowrap">
-                                        <span class="badge bg-success">Active</span>
-                                    </td>
-                                    <td class="d-flex gap-2">
-                                        <a href="#" class="btn btn-sm btn-primary">Detail</a>
-                                        <a href="#" class="btn btn-sm btn-warning">Edit</a>
-                                        <a href="#" class="btn btn-sm btn-danger">Delete</a>
-                                    </td>
-                                </tr>
+                                @foreach ($users as $user)
+                                    <tr>
+                                        <td class="text-nowrap">{{ $user->name }}</td>
+                                        <td class="text-nowrap">{{ $user->email }}</td>
+                                        <td class="text-nowrap">{{ $user->phonenumber }}</td>
+                                        <td class="text-nowrap">
+                                            @if ($user->role == 1)
+                                                <span class="dote dote-danger"></span> <small>Admin</small>
+                                            @elseif ($user->role == 2)
+                                                <span class="dote dote-info"></span> <small>Technician</small>
+                                            @endif
+                                        </td>
+                                        <td class="text-nowrap">
+                                            @if ($user->is_active == 0)
+                                                <span class="badge bg-danger">Inactive</span>
+                                            @else
+                                                <span class="badge bg-success">Active</span>
+                                            @endif
+                                        </td>
+                                        <td class="d-flex gap-2">
+                                            <a href="{{ route('users.edit', $user->id) }}" class="btn btn-sm btn-primary">Detail</a>
+                                            <a href="{{ route('users.edit', $user->id) }}" class="btn btn-sm btn-warning">Edit</a>
+                                            <a href="{{ route('users.edit', $user->id) }}" class="btn btn-sm btn-danger">Delete</a>
+                                        </td>
+                                    </tr>
+                                @endforeach
                             </tbody>
                         </table>
                     </div>
