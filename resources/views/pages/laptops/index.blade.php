@@ -45,32 +45,25 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td class="text-nowrap">1</td>
-                                    <td class="text-nowrap">Lenovo</td>
-                                    <td class="text-nowrap">Ideapad 3</td>
-                                    <td class="text-nowrap">
-                                        <span class="badge bg-success">Active</span>
-                                    </td>
-                                    <td class="d-flex gap-2">
-                                        <a href="#" class="btn btn-sm btn-primary">Detail</a>
-                                        <a href="#" class="btn btn-sm btn-warning">Edit</a>
-                                        <a href="#" class="btn btn-sm btn-danger">Delete</a>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="text-nowrap">2</td>
-                                    <td class="text-nowrap">Acer</td>
-                                    <td class="text-nowrap">Aspire 5</td>
-                                    <td class="text-nowrap">
-                                        <span class="badge bg-success">Active</span>
-                                    </td>
-                                    <td class="d-flex gap-2">
-                                        <a href="#" class="btn btn-sm btn-primary">Detail</a>
-                                        <a href="#" class="btn btn-sm btn-warning">Edit</a>
-                                        <a href="#" class="btn btn-sm btn-danger">Delete</a>
-                                    </td>
-                                </tr>
+                                @foreach ($laptops as $index => $laptop)
+                                    <tr>
+                                        <td class="text-nowrap">{{ $index + 1 }}</td>
+                                        <td class="text-nowrap">{{ $laptop->brand }}</td>
+                                        <td class="text-nowrap">{{ $laptop->model }}</td>
+                                        <td class="text-nowrap">
+                                            @if ($laptop->is_active == 0)
+                                                <span class="badge bg-danger">Inactive</span>
+                                            @else
+                                                <span class="badge bg-success">Active</span>
+                                            @endif
+                                        </td>
+                                        <td class="d-flex gap-2">
+                                            <a href="#" class="btn btn-sm btn-primary">Detail</a>
+                                            <a href="{{ route('laptops.edit', $laptop->id) }}" class="btn btn-sm btn-warning">Edit</a>
+                                            <a href="" class="btn btn-sm btn-danger">Delete</a>
+                                        </td>
+                                    </tr>
+                                @endforeach
                             </tbody>
                         </table>
                     </div>

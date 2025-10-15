@@ -14,7 +14,7 @@
                         <ol class="breadcrumb">
                             <li class="breadcrumb-item"><a href="">Master Data</a></li>
                             <li class="breadcrumb-item"><a href="{{ route('laptops.index') }}">Laptops</a></li>
-                            <li class="breadcrumb-item active" aria-current="page">Create</li>
+                            <li class="breadcrumb-item active" aria-current="page">Edit</li>
                         </ol>
                     </nav>
                 </div>
@@ -29,17 +29,17 @@
                         </div>
                         <div class="card-content">
                             <div class="card-body">
-                                <form class="form" action="{{ route('laptops.store') }}" method="POST" data-parsley-validate id="form-add-user">
+                                <form class="form" action="{{ route('laptops.update', $laptop->id) }}" method="POST" data-parsley-validate id="form-add-user">
                                     @csrf
                                     <div class="row">
                                         <div class="col-md-12 col-12">
                                             <div class="form-group mb-3">
                                                 <label for="brand">Brand</label>
-                                                <input type="text" name="brand" id="brand" data-parsley-required="true" class="form-control" placeholder="ex: Lenovo">
+                                                <input type="text" name="brand" value="{{ $laptop->brand }}" id="brand" data-parsley-required="true" class="form-control" placeholder="ex: Lenovo">
                                             </div>
                                             <div class="form-group mb-3">
                                                 <label for="model">Model</label>
-                                                <input type="text" name="model" id="model" data-parsley-required="true" class="form-control" placeholder="ex : Tinkpad X1 Carbon Gen 9">
+                                                <input type="text" name="model" value="{{ $laptop->model }}" id="model" data-parsley-required="true" class="form-control" placeholder="ex : Tinkpad X1 Carbon Gen 9">
                                             </div>
                                             <div class="form-group mb-3">
                                                 <label for="year">Year Release</label>
@@ -47,7 +47,7 @@
                                                     <option value="" hidden>--Choose Year--</option>
                                                    @for ($i = 0; $i < 50; $i++)
                                                         @php $year = 2014 + $i; @endphp
-                                                        <option value="{{ $year }}">{{ $year }}</option>
+                                                        <option {{ $laptop->release_year == $year ? 'selected' : '' }} value="{{ $year }}">{{ $year }}</option>
                                                     @endfor
                                                 </select>
                                             </div>
@@ -55,8 +55,8 @@
                                                 <label for="status">Status Active</label>
                                                 <select data-parsley-required="true" class="form-control" name="status" id="status">
                                                     <option value="" hidden>--Choose Status--</option>
-                                                    <option value="1">Active</option>
-                                                    <option value="0">Inactive</option>
+                                                    <option {{ $laptop->status == 1 ? 'selected' : '' }} value="1">Active</option>
+                                                    <option {{ $laptop->status == 0 ? 'selected' : '' }} value="0">Inactive</option>
                                                 </select>
                                             </div>
                                         </div>
