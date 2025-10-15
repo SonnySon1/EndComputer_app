@@ -71,6 +71,50 @@ class UserController extends Controller
     
     // update process
     public function update(Request $request, $id){
-        
+        try {
+            $user = User::find($id);
+             $request->validate([
+                'name'              => 'required', 
+                'address'           => 'required',  
+                'phonenumber'       => 'required',  
+                'email'             => 'required|unique:users,email,' . $user->id,
+                'role'              => 'required', 
+                'status'            => 'required'
+            ]);
+
+
+            $storeDataUser = [
+                'image'         => 'default.png',
+                'name'          => $request->name,
+                'address'       => $request->address,
+                'phonenumber'   => $request->phonenumber,
+                'email'         => $request->email,
+                'role'          => $request->role,
+                'is_active'     => $request->status
+            ];
+
+            if (($request->password != null) && ($request->confirm_password != null)) {
+                if ($request->password == $request->confirm_password) {
+                    $storeDataUser['password'] = bcrypt($request->password);
+                }
+                else{
+                    return redirect()->back()->with('error', 'Password and Confirm Password must be same');
+                }
+            }
+
+            $user->update($storeDataUser);
+
+            return redirect()->route('users.index')->with('success', 'User Created Successfully');
+        } catch (\Throwable $th) {
+            return redirect()->back()->with('errors', $th->getMessage());
+        }
+    }
+
+
+    // destroy process
+    public function destroy($id){
+        $user = User::find($id);
+        $user->delete();
+        return redirect()->route('users.index')->with('success', 'User Deleted Successfully');
     }
 }

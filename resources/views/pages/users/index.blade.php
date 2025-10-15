@@ -66,9 +66,9 @@
                                             @endif
                                         </td>
                                         <td class="d-flex gap-2">
-                                            <a href="{{ route('users.edit', $user->id) }}" class="btn btn-sm btn-primary">Detail</a>
+                                            <a href="#" class="btn btn-sm btn-primary">Detail</a>
                                             <a href="{{ route('users.edit', $user->id) }}" class="btn btn-sm btn-warning">Edit</a>
-                                            <a href="{{ route('users.edit', $user->id) }}" class="btn btn-sm btn-danger">Delete</a>
+                                            <button onclick="toastifyConfirm('{{ route('users.destroy', $user->id) }}')" type="button" class="btn btn-sm btn-danger delete-button">Delete</button>
                                         </td>
                                     </tr>
                                 @endforeach

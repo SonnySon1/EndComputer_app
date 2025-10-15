@@ -69,11 +69,11 @@
                                             </div>
                                             <div class="form-group mb-3">
                                                 <label for="password">Password</label>
-                                                <input type="password" name="password" id="password" class="form-control"  data-parsley-required="true" placeholder="ex : Ac1dfg11CA">
+                                                <input type="password" name="password" id="password" class="form-control"  placeholder="ex : Ac1dfg11CA">
                                             </div>
                                             <div class="form-group mb-3">
                                                 <label for="confirm_password">Confirm Password</label>
-                                                <input type="password" name="confirm_password" id="confirm_password" class="form-control"  data-parsley-required="true" placeholder="ex : Ac1dfg11CA">
+                                                <input type="password" name="confirm_password" id="confirm_password" class="form-control"  placeholder="ex : Ac1dfg11CA">
                                             </div>
                                         </div>
                                         <div class="col-12 d-flex gap-2 justify-content-end">

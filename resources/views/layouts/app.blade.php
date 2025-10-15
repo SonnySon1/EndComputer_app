@@ -94,6 +94,61 @@
             }).showToast()
         </script>
     @endif
+
+    <script>
+         function toastifyConfirm(url) {
+            var deleteButton = document.querySelectorAll(".delete-button");
+
+            for (var i = 0; i < deleteButton.length; i++) {
+                deleteButton[i].disabled = true;
+            }
+
+            let confirmHtml = `
+                <div style="display: flex; flex-direction: column; gap: 8px;">
+                    <span>Are you sure?</span>
+                    <small>This action cannot be undone.</small>
+                    <hr>
+                    <div class="d-flex justify-content-between gap-2">
+                        <button id="yesBtn" class="btn btn-outline-white w-100">Yes</button>
+                        <button id="noBtn" class="btn btn-outline-white w-100">Cancel</button>
+                    </div>
+                </div>
+            `;
+
+            let toast = Toastify({
+                node: (() => {
+                    const div = document.createElement("div");
+                    div.innerHTML = confirmHtml;
+                    return div;
+                })(),
+                duration: -1,
+                close: false,
+                gravity: "top",
+                position: "right",
+                stopOnFocus: true,
+                style: {
+                    borderRadius: "8px",
+                },
+                backgroundColor: "linear-gradient(to right, #435ebe, #198754)",
+                onClick: function(){}
+            }).showToast();
+
+            setTimeout(() => {
+                document.getElementById("yesBtn")?.addEventListener("click", () => {
+                    toast.hideToast();
+                    window.location.href = url;
+                });
+
+                document.getElementById("noBtn")?.addEventListener("click", () => {
+                    toast.hideToast();
+                    
+                    for (var i = 0; i < deleteButton.length; i++) {
+                        deleteButton[i].disabled = false;
+                    }
+                });
+            }, 100);
+        }
+    </script>
 </body>
 
 </html>
