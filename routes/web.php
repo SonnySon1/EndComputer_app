@@ -37,6 +37,7 @@ Route::prefix('serviceitems')->group(function () {
     Route::post('/', [ServiceitemController::class, 'store'])->name('serviceitems.store');
     Route::get('/{id}', [ServiceitemController::class, 'edit'])->name('serviceitems.edit');
     Route::post('/{id}', [ServiceitemController::class, 'update'])->name('serviceitems.update');
+    Route::get('destroy/{id}', [ServiceitemController::class, 'destroy'])->name('serviceitems.destroy');
 });
 
 

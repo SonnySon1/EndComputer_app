@@ -29,24 +29,24 @@
                         </div>
                         <div class="card-content">
                             <div class="card-body">
-                                <form class="form" action="{{ route('serviceitems.store') }}" method="POST" data-parsley-validate id="form-add-serviceitem">
+                                <form class="form" action="{{ route('serviceitems.update', $serviceitem->id) }}" method="POST" data-parsley-validate id="form-add-serviceitem">
                                     @csrf
                                     <div class="row">
                                         <div class="col-md-12 col-12">
                                             <div class="form-group mb-3">
                                                 <label for="name">Name</label>
-                                                <input type="text" name="name" id="name" data-parsley-required="true" class="form-control" placeholder="ex: Replace the Keyboard">
+                                                <input type="text" name="name" value="{{ $serviceitem->name }}" id="name" data-parsley-required="true" class="form-control" placeholder="ex: Replace the Keyboard">
                                             </div>
                                             <div class="form-group mb-3">
                                                 <label for="price">Price</label>
-                                                <input type="text" name="price" id="price" data-parsley-required="true" class="form-control currency" placeholder="ex : 200.000">
+                                                <input type="text" name="price" value="{{ $serviceitem->price }}" id="price" data-parsley-required="true" class="form-control currency" placeholder="ex : 200.000">
                                             </div>
                                             <div class="form-group mb-3">
                                                 <label for="status">Status Active</label>
                                                 <select class="form-control" name="status" id="status" data-parsley-required="true">
                                                     <option value="" hidden>--Choose Status--</option>
-                                                    <option value="1">Active</option>
-                                                    <option value="0">Not Active</option>
+                                                    <option {{ $serviceitem->is_active == 1 ? 'selected' : '' }} value="1">Active</option>
+                                                    <option {{ $serviceitem->is_active == 0 ? 'selected' : '' }} value="0">Not Active</option>
                                                 </select>
                                             </div>
                                         </div>

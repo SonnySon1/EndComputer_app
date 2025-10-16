@@ -149,6 +149,25 @@
             }, 100);
         }
     </script>
+
+    <script>
+        $(document).ready(function () {
+            $(".currency").on("keyup", function () {
+                var currencyVal = $(this).val();
+                var currencyValNumber = currencyVal.replace(/[^0-9]/g, '');
+                var formatted = currencyValNumber.replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+                $(this).val(formatted);
+            });
+
+             $(".currency").each(function () {
+                var currencyVal = $(this).val();
+                var currencyValNumber = currencyVal.replace(/[^0-9]/g, '');
+                var formatted = currencyValNumber.replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+                $(this).val(formatted);
+            });
+        });
+
+    </script>
 </body>
 
 </html>
