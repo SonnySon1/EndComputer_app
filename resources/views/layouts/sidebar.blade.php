@@ -52,14 +52,17 @@
                     </a>
                 </li>
 
-                <li class="sidebar-item {{ Route::is('users*') || Route::is('laptops*') || Route::is('serviceitems*') ? 'active' : '' }} has-sub">
+                <li class="sidebar-item {{ Route::is('users*') || Route::is('laptops*') || Route::is('serviceitems*') || Route::is('customers*') ? 'active' : '' }} has-sub">
                     <a href="#" class='sidebar-link'>
                         <i class="bi bi-stack"></i>
                         <span>Master Data</span>
                     </a>
-                    <ul class="submenu  {{ Route::is('users*') || Route::is('laptops*') || Route::is('serviceitems*') ? 'active' : '' }}">
+                    <ul class="submenu  {{ Route::is('users*') || Route::is('laptops*') || Route::is('serviceitems*') || Route::is('customers*') ? 'active' : '' }}">
                         <li class="submenu-item  {{ Route::is('users*') ? 'active' : '' }}">
                             <a href="{{ route('users.index') }}" class="submenu-link">Users</a>
+                        </li>
+                        <li class="submenu-item  {{ Route::is('customers*') ? 'active' : '' }}">
+                            <a href="{{ route('customers.index') }}" class="submenu-link">Customers</a>
                         </li>
                         <li class="submenu-item {{ Route::is('laptops*') ? 'active' : '' }}">
                             <a href="{{ route('laptops.index') }}" class="submenu-link">Laptops</a>

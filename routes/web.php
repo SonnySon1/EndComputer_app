@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\LaptopController;
 use App\Http\Controllers\ServiceController;
@@ -18,6 +19,16 @@ Route::prefix('users')->group(function () {
     Route::get('/{id}', [UserController::class, 'edit'])->name('users.edit');
     Route::post('/{id}', [UserController::class, 'update'])->name('users.update');
     Route::get('destroy/{id}', [UserController::class, 'destroy'])->name('users.destroy');
+});
+
+// user routes
+Route::prefix('customers')->group(function () {
+    Route::get('/', [CustomerController::class, 'index'])->name('customers.index');
+    Route::get('/create', [CustomerController::class, 'create'])->name('customers.create');
+    Route::post('/', [CustomerController::class, 'store'])->name('customers.store');
+    Route::get('/{id}', [CustomerController::class, 'edit'])->name('customers.edit');
+    Route::post('/{id}', [CustomerController::class, 'update'])->name('customers.update');
+    Route::get('destroy/{id}', [CustomerController::class, 'destroy'])->name('customers.destroy');
 });
 
 // laptop routes
