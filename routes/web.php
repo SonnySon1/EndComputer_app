@@ -27,6 +27,7 @@ Route::prefix('laptops')->group(function () {
     Route::post('/', [LaptopController::class, 'store'])->name('laptops.store');
     Route::get('/{id}', [LaptopController::class, 'edit'])->name('laptops.edit');
     Route::post('/{id}', [LaptopController::class, 'update'])->name('laptops.update');
+    Route::get('destroy/{id}', [LaptopController::class, 'destroy'])->name('laptops.destroy');
 });
 
 // service items routes

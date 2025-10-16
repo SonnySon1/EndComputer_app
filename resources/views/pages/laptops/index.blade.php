@@ -60,7 +60,7 @@
                                         <td class="d-flex gap-2">
                                             <a href="#" class="btn btn-sm btn-primary">Detail</a>
                                             <a href="{{ route('laptops.edit', $laptop->id) }}" class="btn btn-sm btn-warning">Edit</a>
-                                            <a href="" class="btn btn-sm btn-danger">Delete</a>
+                                            <button onclick="toastifyConfirm('{{ route('laptops.destroy', $laptop->id) }}')" type="button" class="btn btn-sm btn-danger delete-button">Delete</button>
                                         </td>
                                     </tr>
                                 @endforeach

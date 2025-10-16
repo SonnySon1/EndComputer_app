@@ -93,4 +93,13 @@ class LaptopController extends Controller
             return redirect()->back()->with('errors', $th->getMessage());
         }
     }
+
+
+
+    // destroy process
+    public function destroy($id){
+        $laptop = Laptop::find($id);
+        $laptop->delete();
+        return redirect()->route('laptops.index')->with('success', 'Laptop Deleted Successfully');
+    }
 }
