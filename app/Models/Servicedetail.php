@@ -10,4 +10,14 @@ class Servicedetail extends Model
     use SoftDeletes;
     
     protected $guarded = [];
+
+    public function service()
+    {
+        return $this->belongsTo(Service::class, 'service_id');
+    }
+
+    public function serviceitem()
+    {
+        return $this->belongsTo(Serviceitem::class, 'serviceitem_id');
+    }
 }

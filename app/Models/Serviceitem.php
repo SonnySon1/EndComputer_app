@@ -10,4 +10,9 @@ class Serviceitem extends Model
     use SoftDeletes;
 
     protected $guarded = [];
+
+    public function servicedetail()
+    {
+        return $this->hasMany(Servicedetail::class, 'serviceitem_id');
+    }
 }

@@ -47,33 +47,38 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td class="text-nowrap">1</td>
-                                    <td class="text-nowrap">ENV-0001</td>
-                                    <td class="text-nowrap">Graiden</td>
-                                    <td class="text-nowrap">Lenovo</td>
-                                    <td class="text-nowrap"><span class="dote dote-danger"></span> <small>Unpaid</small></td>
-                                    <td class="text-nowrap">
-                                        <span class="badge bg-info">Accepted</span>
-                                    </td>
-                                    <td class="d-flex gap-2">
-                                        <a href="#" class="btn btn-sm btn-primary">Detail</a>
-                                        <a href="#" class="btn btn-sm btn-success">Payment</a>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="text-nowrap">1</td>
-                                    <td class="text-nowrap">ENV-0002</td>
-                                    <td class="text-nowrap">Graiden</td>
-                                    <td class="text-nowrap">Lenovo</td>
-                                    <td class="text-nowrap"><span class="dote dote-success"></span> <small>Paid</small></td>
-                                    <td class="text-nowrap">
-                                        <span class="badge bg-success">Taken</span>
-                                    </td>
-                                    <td class="d-flex gap-2">
-                                        <a href="#" class="btn btn-sm btn-primary">Detail</a>
-                                    </td>
-                                </tr>
+                                @foreach ($services as $index => $service)
+                                    <tr>
+                                        <td class="text-nowrap">{{ $index + 1 }}</td>
+                                        <td class="text-nowrap">{{ $service->no_invoice }}</td>
+                                        <td class="text-nowrap">{{ $service->customer->name }}</td>
+                                        <td class="text-nowrap">{{ $service->laptop->brand }} | {{ $service->laptop->model }}</td>
+                                        <td class="text-nowrap">
+                                            @if ($service->is_paid == 1)
+                                                <span class="dote dote-success"></span> <small>Paid</small>
+                                            @else
+                                                <span class="dote dote-danger"></span> <small>Unpaid</small>
+                                            @endif
+                                        </td>
+                                        <td class="text-nowrap">
+                                            @if ($service->status == 1)
+                                                <span class="badge bg-info">Accepted</span>
+                                            @elseif ($service->status == 2)
+                                                <span class="badge bg-warning">Process</span>
+                                            @elseif ($service->status == 3)
+                                                <span class="badge bg-success">Done</span>
+                                            @elseif ($service->status == 4)
+                                                <span class="badge bg-success">Taken</span>
+                                            @elseif ($service->status == 5)
+                                                <span class="badge bg-danger">Cancled</span>
+                                            @endif
+                                        </td>
+                                        <td class="d-flex gap-2">
+                                            <a href="#" class="btn btn-sm btn-primary">Detail</a>
+                                            <a href="#" class="btn btn-sm btn-success">Payment</a>
+                                        </td>
+                                    </tr>
+                                @endforeach
                             </tbody>
                         </table>
                     </div>

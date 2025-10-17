@@ -10,4 +10,9 @@ class Laptop extends Model
     use SoftDeletes;
     
     protected $guarded = [];
+
+    public function service()
+    {
+        return $this->hasMany(Service::class, 'laptop_id');
+    }
 }
