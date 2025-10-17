@@ -21,7 +21,8 @@
             </div>
         </div>
         <section id="multiple-column-form">
-            <form class="form" action="{{ route('services.store') }}" method="POST" id="form-add-user">
+            <form class="form" action="{{ route('services.store') }}" method="POST" data-parsley-validate id="form-add-service">
+                @csrf
                 <div class="row match-height">
                     <div class="col-12">
                         <div class="card">
@@ -34,33 +35,36 @@
                                         <div class="col-md-6 col-12">
                                             <div class="form-group mb-3">
                                                 <label for="customer">Customer</label>
-                                                <select class="form-control" name="customer" id="customer">
-                                                    <option hidden>--Choose Customer--</option>
-                                                    <option value="1">Admin</option>
-                                                    <option value="2">Technician</option>
+                                                <select class="form-control" name="customer" data-parsley-required="true" id="customer">
+                                                    <option value="" hidden>--Choose Customer--</option>
+                                                    @foreach ($customers as $customer)
+                                                        <option value="{{ $customer->id }}">{{ $customer->name }}</option>
+                                                    @endforeach
                                                 </select>
                                             </div>
                                             <div class="form-group mb-3">
                                                 <label for="laptop">Laptop</label>
-                                                <select class="form-control" name="laptop" id="laptop">
-                                                    <option hidden>--Choose Laptop--</option>
-                                                    <option value="1">Lenovo | Thinkpad X1 Carbon Gen 9</option>
-                                                    <option value="2">Acer | Aspire 5</option>
+                                                <select class="form-control" name="laptop" data-parsley-required="true" id="laptop">
+                                                    <option value="" hidden>--Choose Laptop--</option>
+                                                    @foreach ($laptops as $laptop)
+                                                        <option value="{{ $laptop->id }}">{{ $laptop->brand }} | {{ $laptop->model }}</option>
+                                                    @endforeach
                                                 </select>
                                             </div>
                                         </div>
                                         <div class="col-md-6 col-12">
                                                 <div class="form-group mb-3">
                                                 <label for="technician">Technician</label>
-                                                <select class="form-control" name="technician" id="technician">
-                                                    <option hidden>--Choose Technician--</option>
-                                                    <option value="1">Rehan</option>
-                                                    <option value="2">Jordan</option>
+                                                <select class="form-control" name="technician" data-parsley-required="true" id="technician">
+                                                    <option value="" hidden>--Choose Technician--</option>
+                                                    @foreach ($technicians as $technician)
+                                                        <option value="{{ $technician->id }}">{{ $technician->name }}</option>
+                                                    @endforeach
                                                 </select>
                                             </div>
                                             <div class="form-group mb-3">
                                                 <label for="damagedescription">Damage Description</label>
-                                                <input type="text" name="damagedescription" id="damagedescription" class="form-control" placeholder="ex : Broken Keyboard, Broken Screen, Broken Touchpad">
+                                                <input type="text" name="damagedescription" data-parsley-required="true" id="damagedescription" class="form-control" placeholder="ex : Broken Keyboard, Broken Screen, Broken Touchpad">
                                             </div>
                                         </div>
                                     </div>
@@ -88,8 +92,11 @@
                                             
                                         </tbody>
                                     </table>
-                                    <div>
+                                    <div class="mb-5">
                                         <button type="button" id="add-row-servicetype" class="btn btn-secondary w-100">Add Other Service</button>
+                                    </div>
+                                    <div class="d-flex justify-content-end">
+                                        <button type="submit" class="btn btn-primary">Submit</button>
                                     </div>
                                 </div>
                             </div>
@@ -102,6 +109,8 @@
 @endsection
 @push('costom.js')
     <script>
+        var serviceItems = {!! json_encode($serviceItems) !!};
+
         $(document).ready(function () {
             addNewServiceTypeRow();
             $('#add-row-servicetype').on('click', function () {
@@ -112,20 +121,21 @@
             let rowCount = $('#table-body-servicetype tr').length;
             row = rowCount + 1;
 
+            var selectServiceItem = '<option value="" hidden>Select Service Type...</option>';
+            serviceItems.forEach(serviceItem => {
+                selectServiceItem += `<option value="${serviceItem.id}">${serviceItem.name}</option>`
+            });
 
             let rowHtml = `
                 <tr class="servicetype-row">
                     <td>${row}</td>
                     <td>
-                        <select class="form-control select2" name="service_type[]" id="service_type_${row}">
-                            <option hidden>--Choose Service Type--</option>
-                            <option value="1">Service LCD</option>
-                            <option value="2">Service Keyboard</option>
-                            <option value="2">Service Touchpad</option>
+                        <select class="form-control select2" onchange="getServiceItemPrice(${row}, this.value)" name="service_type[]" data-parsley-required="true" id="service_type_${row}">
+                            ${selectServiceItem}
                         </select>
                     </td>
                     <td>
-                        <input type="text" name="price" disabled readonly id="price_${row}" class="form-control" placeholder="0">
+                        <input type="text" name="price[]" disabled readonly  id="price_${row}" class="form-control" placeholder="0">
                     </td>
                     <td>
                         <button onclick="removeServiceTypeRow(this)" class="btn btn-danger btn-remove-product-purcahse-row"><i class="bi bi-trash3"></i></button>
@@ -158,6 +168,15 @@
             $(row).closest('.servicetype-row').remove();
 
             updateNumberServiceTypeRow();
+        }
+
+
+
+        // get serviceItem by id
+        function getServiceItemPrice(row, id) {
+            let price = serviceItems.find(serviceItem => serviceItem.id == id).price;
+            
+            $('#table-body-servicetype #price_' + row).val(currency(price));
         }
     </script>
 @endpush
